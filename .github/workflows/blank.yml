@@ -20,7 +20,7 @@ jobs:
           command: echo "this thing works!"
 
       - uses: doitadrian/action-post@master
-        id: another-post-run command
+        id: another-post-run-command
         with:
           command: echo "this thing works again!"
 
