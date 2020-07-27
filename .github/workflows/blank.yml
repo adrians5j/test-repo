@@ -15,12 +15,14 @@ jobs:
       - uses: actions/checkout@v2
     
       - uses: doitadrian/action-post@master
+        id: "a post-run command"
         with:
           command: echo "this thing works!"
 
       - uses: doitadrian/action-post@master
+        id: "another post-run command"
         with:
           command: echo "this thing works again!"
 
-      - name: 'This should fail.'
-        run: asd 123;
+      - name: 'Running a unexisting command will fail...'
+        run: run something that does not exist;
