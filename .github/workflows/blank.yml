@@ -13,7 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-    
+
+      - uses: webiny/action-conventional-commits@v1.0.3
+
       - uses: doitadrian/action-post-run@1.0.0
         id: post-run-command
         with:
