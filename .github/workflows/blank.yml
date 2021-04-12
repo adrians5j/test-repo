@@ -17,6 +17,9 @@ jobs:
       - name: 'What is the Yarn version here?'
         run: yarn --version
 
+      - name: 'Let us upgrade yarn and see the version to which we upgraded.'
+        run: mkdir test-package && cd test-package && yarn init -y && yarn set version 2.4.1 && yarn --version
+
       - uses: webiny/action-conventional-commits@v1.0.3
 
       - uses: doitadrian/action-post-run@1.0.0
