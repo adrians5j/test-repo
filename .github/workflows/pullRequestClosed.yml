@@ -1,9 +1,10 @@
-name: Pull Requests
+name: Pull Request Closed
 
 on:
   pull_request:
     branches: [dev, staging, prod]
     types: [closed]
+
 
 jobs:
   # This first step ensures we don't run the workflow if the repository is empty.
@@ -30,6 +31,9 @@ jobs:
           node-version: 12
 
       - uses: actions/checkout@v2
+
+      - name: Check github.event.pull_request.number
+        run: echo ${{ github.event.pull_request.number }}
 
       - name: Check GH env variables...
         run: echo ${{ env.GITHUB_HEAD_REF }}
