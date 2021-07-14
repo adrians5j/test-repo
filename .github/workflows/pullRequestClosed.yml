@@ -24,7 +24,6 @@ jobs:
     name: Build and run static and unit tests
     needs: repository-check
     runs-on: ubuntu-latest
-    if: needs.repository-check.outputs.ready == 'true'
     steps:
       - uses: actions/setup-node@v2
         with:
