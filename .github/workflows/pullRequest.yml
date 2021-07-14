@@ -23,10 +23,15 @@ jobs:
     name: Build and run static and unit tests
     needs: repository-check
     runs-on: ubuntu-latest
-    if: needs.repository-check.outputs.ready == 'true'
     steps:
       - uses: actions/setup-node@v2
         with:
           node-version: 12
 
       - uses: actions/checkout@v2
+
+      - name: Check GH env variables...
+        run: echo ${{ env.GITHUB_HEAD_REF }}
+
+      - name: Check GH env variables...
+        run: echo ${{ env.GITHUB_BASE_REF }}
