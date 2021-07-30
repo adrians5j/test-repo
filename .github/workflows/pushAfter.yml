@@ -1,4 +1,4 @@
-name: Pull Requests
+name: Push After
 
 on:
   workflow_run:
