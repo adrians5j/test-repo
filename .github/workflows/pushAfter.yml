@@ -25,3 +25,8 @@ jobs:
       - name: '2'
         id: a2
         run: echo "${{ github.event.workflow_run }}"
+
+      - name: '3'
+        id: a3
+        run: node --eval "console.log(JSON.stringify(${{ github.event.workflow_run }}, null, 2))"
+
