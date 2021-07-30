@@ -19,9 +19,9 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: '1'
-        id: 1
+        id: a1
         run: echo "NO"
 
       - name: '2'
-        id: 2
+        id: a2
         run: echo "${{ github.event.workflow_run }}"
