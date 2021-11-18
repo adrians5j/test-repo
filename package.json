@@ -4,5 +4,8 @@
   "bin": "./index.js",
   "dependencies": {
     "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.4.1"
   }
 }
