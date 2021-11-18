@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require('yargs')
+const args = require('yargs')
 
-console.log(process.argv)
+console.log(args)
 console.log("I was executed from a gist inside the terminal with npx!");
