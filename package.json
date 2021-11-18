@@ -1,5 +1,8 @@
 {
   "name": "run-js-with-npx-from-gist",
   "version": "1.0.0",
-  "bin": "./index.js"
+  "bin": "./index.js",
+  "dependencies": {
+    "yargs": "^17.2.1"
+  }
 }
