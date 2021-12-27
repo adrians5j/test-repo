@@ -1,291 +1,215 @@
-# `@webiny/error`
-[![](https://img.shields.io/npm/dw/@webiny/error.svg)](https://www.npmjs.com/package/@webiny/error)
-[![](https://img.shields.io/npm/v/@webiny/error.svg)](https://www.npmjs.com/package/@webiny/error)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[@webiny/validation](../README.md) / [Exports](../modules.md) / Validation
 
-An extended version of the native `Error` class.
+# Class: Validation
 
-## Table of Contents
+Main class of Validation library.
+Exported as a singleton instance, it offers methods for sync/async data validation and overwriting or adding new validators.
 
--   [Installation](#installation)
--   [Overview](#overview)
--   [Examples](#examples)
--   [Reference](#reference)
-    -   [Classes](#classes)
-        -   [`Error`](#error)
+**`example`**
+import { validation } from '@webiny/validation';
 
-## Installation
-
-```
-npm install --save @webiny/error
-```
-
-Or if you prefer yarn:
-
-```
-yarn add @webiny/error
-```
-
-
-## Overview
-
-The Error component exported from the `@webiny/error` package is a regular error, except extended with additional fields.
-
-The `WError` class is used as any other Error class. Simply import it from `@webiny/error` and use it.
-
-```ts
-import Error from "@webiny/error";
-
-if (new Date().getFullYear() > 2021) {
-  throw new Error({
-    message: "Year must be greater than 2021.",
-    code: "YEAR_NOT_GT_2021",
-    data: {
-      xyz: 123
-    }
-  });
-}
-```
-
-
-## Examples
-
-| Example | Description |
-| ------- | ----------- |
-| [Basic Usage](./docs/examples/basicUsage.md) | Shows basic usage of the &#x60;Error&#x60; class. |
-| [Custom Error Classes](./docs/examples/customClasses.md) | Shows how to create custom &#x60;Error&#x60; classes. |
-
-## Reference
-
-### Classes
-
-#### `Error`
-
-[@webiny/error](../README.md) / [Exports](../modules.md) / Error
-
-# Class: Error<TData\>
-
-## Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TData` | `any` |
-
-## Hierarchy
-
-- `Error`
-
-  ↳ **`Error`**
+// `validation` is a preconfigured instance of Validation class.
+// From here you can either add new validators or use it as-is.
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](Error.md#constructor)
+- [constructor](Validation.md#constructor)
 
 ### Properties
 
-- [code](Error.md#code)
-- [data](Error.md#data)
-- [message](Error.md#message)
-- [name](Error.md#name)
-- [stack](Error.md#stack)
-- [prepareStackTrace](Error.md#preparestacktrace)
-- [stackTraceLimit](Error.md#stacktracelimit)
+- [\_\_validators](Validation.md#__validators)
 
 ### Methods
 
-- [captureStackTrace](Error.md#capturestacktrace)
-- [from](Error.md#from)
+- [\_\_parseValidateProperty](Validation.md#__parsevalidateproperty)
+- [create](Validation.md#create)
+- [createSync](Validation.md#createsync)
+- [getValidator](Validation.md#getvalidator)
+- [setValidator](Validation.md#setvalidator)
+- [validate](Validation.md#validate)
+- [validateSync](Validation.md#validatesync)
 
 ## Constructors
 
 ### constructor
 
-• **new Error**<`TData`\>(`message`, `code?`, `data?`)
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TData` | `any` |
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `message` | `string` \| `ErrorOptions`<`TData`\> | `undefined` |
-| `code` | `string` | `null` |
-| `data` | `TData` | `null` |
-
-#### Overrides
-
-Error.constructor
+• **new Validation**()
 
 #### Defined in
 
-[packages/error/src/Error.ts:11](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/error/src/Error.ts#L11)
+[packages/validation/src/validation.ts:34](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L34)
 
 ## Properties
 
-### code
+### \_\_validators
 
-• `Optional` **code**: `string`
+• `Private` **\_\_validators**: `Object`
 
-#### Defined in
+Contains a list of all set validators.
 
-[packages/error/src/Error.ts:9](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/error/src/Error.ts#L9)
+#### Index signature
 
-___
-
-### data
-
-• `Optional` **data**: `TData`
+▪ [key: `string`]: `Validator`
 
 #### Defined in
 
-[packages/error/src/Error.ts:10](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/error/src/Error.ts#L10)
-
-___
-
-### message
-
-• **message**: `string`
-
-#### Overrides
-
-Error.message
-
-#### Defined in
-
-[packages/error/src/Error.ts:8](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/error/src/Error.ts#L8)
-
-___
-
-### name
-
-• **name**: `string`
-
-#### Inherited from
-
-Error.name
-
-#### Defined in
-
-node_modules/typescript/lib/lib.es5.d.ts:973
-
-___
-
-### stack
-
-• `Optional` **stack**: `string`
-
-#### Inherited from
-
-Error.stack
-
-#### Defined in
-
-node_modules/typescript/lib/lib.es5.d.ts:975
-
-___
-
-### prepareStackTrace
-
-▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
-
-#### Type declaration
-
-▸ (`err`, `stackTraces`): `any`
-
-Optional override for formatting stack traces
-
-**`see`** https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `err` | `Error` |
-| `stackTraces` | `CallSite`[] |
-
-##### Returns
-
-`any`
-
-#### Inherited from
-
-Error.prepareStackTrace
-
-#### Defined in
-
-node_modules/@types/node/globals.d.ts:140
-
-___
-
-### stackTraceLimit
-
-▪ `Static` **stackTraceLimit**: `number`
-
-#### Inherited from
-
-Error.stackTraceLimit
-
-#### Defined in
-
-node_modules/@types/node/globals.d.ts:142
+[packages/validation/src/validation.ts:32](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L32)
 
 ## Methods
 
-### captureStackTrace
+### \_\_parseValidateProperty
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ `Private` **__parseValidateProperty**(`validators`): `ParsedValidators`
 
-Create .stack property on a target object
+Parses a string of validators with parameters.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `Object` |
-| `constructorOpt?` | `Function` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `validators` | `string` | A list of comma-separated validators (eg. required,number,gt:20). |
 
 #### Returns
 
-`void`
-
-#### Inherited from
-
-Error.captureStackTrace
+`ParsedValidators`
 
 #### Defined in
 
-node_modules/@types/node/globals.d.ts:133
+[packages/validation/src/validation.ts:159](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L159)
 
 ___
 
-### from
+### create
 
-▸ `Static` **from**<`TData`\>(`err`, `options?`): [`Error`](Error.md)<`any`\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TData` | `any` |
+▸ **create**(`validators`): `any`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `err` | `any` |
-| `options` | `ErrorOptions`<`TData`\> |
+| `validators` | `string` |
 
 #### Returns
 
-[`Error`](Error.md)<`any`\>
+`any`
 
 #### Defined in
 
-[packages/error/src/Error.ts:23](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/error/src/Error.ts#L23)
+[packages/validation/src/validation.ts:135](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L135)
+
+___
+
+### createSync
+
+▸ **createSync**(`validators`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `validators` | `string` |
+
+#### Returns
+
+`any`
+
+#### Defined in
+
+[packages/validation/src/validation.ts:144](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L144)
+
+___
+
+### getValidator
+
+▸ **getValidator**(`name`): `Validator`
+
+Get validator function by name.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `name` | `string` | Validator name. |
+
+#### Returns
+
+`Validator`
+
+A validator function.
+
+#### Defined in
+
+[packages/validation/src/validation.ts:54](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L54)
+
+___
+
+### setValidator
+
+▸ **setValidator**(`name`, `callable`): [`Validation`](Validation.md)
+
+Add new validator.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `name` | `string` | Validator name. |
+| `callable` | `Validator` | Validator function which throws a ValidationError if validation fails. |
+
+#### Returns
+
+[`Validation`](Validation.md)
+
+#### Defined in
+
+[packages/validation/src/validation.ts:44](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L44)
+
+___
+
+### validate
+
+▸ **validate**(`value`, `validators`, `options?`): `Promise`<`boolean` \| [`ValidationError`](ValidationError.md)\>
+
+Asynchronously validates value.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `any` | Value to validate. |
+| `validators` | `string` | A list of comma-separated validators (eg. required,number,gt:20). |
+| `options` | `ValidateOptions` | - |
+
+#### Returns
+
+`Promise`<`boolean` \| [`ValidationError`](ValidationError.md)\>
+
+#### Defined in
+
+[packages/validation/src/validation.ts:68](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L68)
+
+___
+
+### validateSync
+
+▸ **validateSync**(`value`, `validators`, `options?`): `boolean` \| [`ValidationError`](ValidationError.md)
+
+Synchronously validates value.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `any` | Value to validate. |
+| `validators` | `string` | A list of comma-separated validators (eg. required,number,gt:20). |
+| `options` | `ValidateOptions` | - |
+
+#### Returns
+
+`boolean` \| [`ValidationError`](ValidationError.md)
+
+#### Defined in
+
+[packages/validation/src/validation.ts:105](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L105)
