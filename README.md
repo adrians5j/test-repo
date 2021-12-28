@@ -1,215 +1,105 @@
-[@webiny/validation](../README.md) / [Exports](../modules.md) / Validation
+# `@webiny/error`
+[![](https://img.shields.io/npm/dw/@webiny/error.svg)](https://www.npmjs.com/package/@webiny/error)
+[![](https://img.shields.io/npm/v/@webiny/error.svg)](https://www.npmjs.com/package/@webiny/error)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-# Class: Validation
+An extended version of the native `Error` class.
 
-Main class of Validation library.
-Exported as a singleton instance, it offers methods for sync/async data validation and overwriting or adding new validators.
+## Table of Contents
 
-**`example`**
-import { validation } from '@webiny/validation';
+-   [Installation](#installation)
+-   [Overview](#overview)
+-   [Examples](#examples)
+-   [Reference](#reference)
+    -   [Classes](#classes)
+        -   [`Error`](#error)
 
-// `validation` is a preconfigured instance of Validation class.
-// From here you can either add new validators or use it as-is.
+## Installation
 
-## Table of contents
+```
+npm install --save @webiny/error
+```
 
-### Constructors
+Or if you prefer yarn:
 
-- [constructor](Validation.md#constructor)
+```
+yarn add @webiny/error
+```
 
-### Properties
 
-- [\_\_validators](Validation.md#__validators)
+## Overview
 
-### Methods
+The Error component exported from the `@webiny/error` package is a regular error, except extended with additional fields.
 
-- [\_\_parseValidateProperty](Validation.md#__parsevalidateproperty)
-- [create](Validation.md#create)
-- [createSync](Validation.md#createsync)
-- [getValidator](Validation.md#getvalidator)
-- [setValidator](Validation.md#setvalidator)
-- [validate](Validation.md#validate)
-- [validateSync](Validation.md#validatesync)
+The `WError` class is used as any other Error class. Simply import it from `@webiny/error` and use it.
 
-## Constructors
+```ts
+import Error from "@webiny/error";
 
-### constructor
+if (new Date().getFullYear() > 2021) {
+    throw new Error({
+        message: "Year must be greater than 2021.",
+        code: "YEAR_NOT_GT_2021",
+        data: {
+            xyz: 123
+        }
+    });
+}
+```
 
-• **new Validation**()
 
-#### Defined in
+## Examples
 
-[packages/validation/src/validation.ts:34](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L34)
+| Example | Description |
+| ------- | ----------- |
+| [Basic Usage](./docs/examples/basicUsage.md) | Shows basic usage of the &#x60;Error&#x60; class. |
+| [Custom Error Classes](./docs/examples/customClasses.md) | Shows how to create custom &#x60;Error&#x60; classes. |
 
-## Properties
+## Reference
 
-### \_\_validators
+### Classes
 
-• `Private` **\_\_validators**: `Object`
+#### [`Error<TData = any>`](#123)
 
-Contains a list of all set validators.
+<details>
+<summary>Type Declaration</summary>
+<p>
 
-#### Index signature
+```ts
+interface ErrorOptions<TData> {
+    message?: string;
+    code?: string;
+    data?: TData;
+}
 
-▪ [key: `string`]: `Validator`
+export default class WError<TData = any> extends Error {
+    message: string;
+    code?: string;
+    data?: TData;
+    
+    constructor(message: string | ErrorOptions<TData>, code?: string, data?: TData);
+    
+    static from<TData = any>(err: any, options?: ErrorOptions<TData>): WError<any>;
+}
+```
 
-#### Defined in
+</p>
+</details>  
 
-[packages/validation/src/validation.ts:32](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L32)
+The main class that you instantiate and throw, instead of the native one.
 
-## Methods
 
-### \_\_parseValidateProperty
+```ts
+import WError from "@webiny/error";
 
-▸ `Private` **__parseValidateProperty**(`validators`): `ParsedValidators`
-
-Parses a string of validators with parameters.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `validators` | `string` | A list of comma-separated validators (eg. required,number,gt:20). |
-
-#### Returns
-
-`ParsedValidators`
-
-#### Defined in
-
-[packages/validation/src/validation.ts:159](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L159)
-
-___
-
-### create
-
-▸ **create**(`validators`): `any`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `validators` | `string` |
-
-#### Returns
-
-`any`
-
-#### Defined in
-
-[packages/validation/src/validation.ts:135](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L135)
-
-___
-
-### createSync
-
-▸ **createSync**(`validators`): `any`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `validators` | `string` |
-
-#### Returns
-
-`any`
-
-#### Defined in
-
-[packages/validation/src/validation.ts:144](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L144)
-
-___
-
-### getValidator
-
-▸ **getValidator**(`name`): `Validator`
-
-Get validator function by name.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | Validator name. |
-
-#### Returns
-
-`Validator`
-
-A validator function.
-
-#### Defined in
-
-[packages/validation/src/validation.ts:54](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L54)
-
-___
-
-### setValidator
-
-▸ **setValidator**(`name`, `callable`): [`Validation`](Validation.md)
-
-Add new validator.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | Validator name. |
-| `callable` | `Validator` | Validator function which throws a ValidationError if validation fails. |
-
-#### Returns
-
-[`Validation`](Validation.md)
-
-#### Defined in
-
-[packages/validation/src/validation.ts:44](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L44)
-
-___
-
-### validate
-
-▸ **validate**(`value`, `validators`, `options?`): `Promise`<`boolean` \| [`ValidationError`](ValidationError.md)\>
-
-Asynchronously validates value.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `value` | `any` | Value to validate. |
-| `validators` | `string` | A list of comma-separated validators (eg. required,number,gt:20). |
-| `options` | `ValidateOptions` | - |
-
-#### Returns
-
-`Promise`<`boolean` \| [`ValidationError`](ValidationError.md)\>
-
-#### Defined in
-
-[packages/validation/src/validation.ts:68](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L68)
-
-___
-
-### validateSync
-
-▸ **validateSync**(`value`, `validators`, `options?`): `boolean` \| [`ValidationError`](ValidationError.md)
-
-Synchronously validates value.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `value` | `any` | Value to validate. |
-| `validators` | `string` | A list of comma-separated validators (eg. required,number,gt:20). |
-| `options` | `ValidateOptions` | - |
-
-#### Returns
-
-`boolean` \| [`ValidationError`](ValidationError.md)
-
-#### Defined in
-
-[packages/validation/src/validation.ts:105](https://github.com/webiny/webiny-js/blob/e526d617a8/packages/validation/src/validation.ts#L105)
+if (new Date().getFullYear() > 2021) {
+  throw new Error({
+    message: "Year must be greater than 2021.",
+    code: "YEAR_NOT_GT_2021",
+    data: {
+      xyz: 123
+    }
+  });
+}
+```
