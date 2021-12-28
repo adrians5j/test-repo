@@ -57,7 +57,7 @@ if (new Date().getFullYear() > 2021) {
 
 ### Classes
 
-#### [`Error<TData = any>`](#123)
+#### `Error<TData = any>`
 
 <details>
 <summary>Type Declaration</summary>
