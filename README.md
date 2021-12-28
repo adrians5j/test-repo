@@ -30,9 +30,7 @@ yarn add @webiny/error
 
 ## Overview
 
-The Error component exported from the `@webiny/error` package is a regular error, except extended with additional fields.
-
-The `WError` class is used as any other Error class. Simply import it from `@webiny/error` and use it.
+The `WError` class exported from the `@webiny/error` package is essentially the same as the native `Error`, except it's extended with additional `message`, `code`, and `data` properties. For example: 
 
 ```ts
 import Error from "@webiny/error";
@@ -47,7 +45,6 @@ if (new Date().getFullYear() > 2021) {
     });
 }
 ```
-
 
 ## Examples
 
@@ -103,3 +100,5 @@ if (new Date().getFullYear() > 2021) {
   });
 }
 ```
+
+> Note: the `WError` identifier is arbitrary. If preferred, it can pretty much be just `Error` too.
