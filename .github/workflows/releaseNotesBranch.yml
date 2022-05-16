@@ -16,6 +16,7 @@ jobs:
           branch: webiny-${{ github.event.client_payload.toVersion }}
 
   create-release-notes:
+    needs: create-branch
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
