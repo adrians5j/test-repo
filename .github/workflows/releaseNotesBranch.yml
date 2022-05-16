@@ -12,12 +12,8 @@ jobs:
       - name: Install dependencies
         run: yarn --immutable
 
-      - name: Create notes
-        uses: technote-space/create-pr-action@v2
-        with:
-          EXECUTE_COMMANDS: node create-file.js
-          COMMIT_MESSAGE: 'chore: create release notes'
-          COMMIT_NAME: 'GitHub Actions'
-          COMMIT_EMAIL: 'example@example.com'
-          PR_BRANCH_NAME: 'chore-npm-update-${PR_ID}'
-          PR_TITLE: 'chore: update npm dependencies'
+      - name: run
+        run: node create-file.js
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
