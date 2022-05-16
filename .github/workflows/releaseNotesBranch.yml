@@ -7,8 +7,9 @@ jobs:
   aws-nuke:
     runs-on: ubuntu-latest
     steps:
-      with:
-        ref: webiny-${{ github.event.client_payload.toVersion }}
+      - uses: actions/checkout@v2
+        with:
+          ref: webiny-${{ github.event.client_payload.toVersion }}
 
       - name: Install dependencies
         run: yarn --immutable
