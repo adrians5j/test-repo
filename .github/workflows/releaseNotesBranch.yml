@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: peterjgrainger/action-create-branch@v2.2.0
-        # env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: webiny-${{ github.event.client_payload.toVersion }}
 
