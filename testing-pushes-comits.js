@@ -1,35 +1,37 @@
-const execa = require("execa");
+#!/usr/bin/env node
+const { red, green } = require("chalk");
+const argv = require("yargs").argv;
+
+const { Octokit } = require("@octokit/rest");
+
+const TS = String(new Date().getTime());
 
 (async () => {
-    const ts = new Date().getTime();
+    try {
+        if (!argv.token) {
+            throw new Error(
+                `"--token" argument missing. Make sure it contains a valid GitHub access token.`
+            );
+        }
 
-    {
-        const result = execa.sync("git", ["fetch"]);
-        console.log(result.stdout);
-    }
+        const octokit = new Octokit({
+            auth: argv.token
+        });
 
-    {
-        const result = execa.sync("git", ["checkout", "-b", `webiny-${ts}`, "origin/master"]);
-        console.log(result.stdout);
-    }
+        await octokit.repos.createDispatchEvent({
+            owner: "doitadrian",
+            repo: "test-repo",
+            event_type: "prepare-release-notes",
+            client_payload: {
+                fromVersion: `version-1.${TS}`,
+                toVersion: `version-2.${TS}`,
+            }
+        });
 
-    {
-        const result = execa.sync("touch", [`file-${ts}.txt`]);
-        console.log(result.stdout);
-    }
-
-    {
-        const result = execa.sync("git", ["add", "."]);
-        console.log(result.stdout);
-    }
-
-    {
-        const result = execa.sync("git", ["commit", "-m", `"testing"`]);
-        console.log(result.stdout);
-    }
-
-    {
-        const result = execa.sync("git", ["push", "origin", "HEAD"]);
-        console.log(result.stdout);
+        console.log(green("GitHub workflow successfully triggered."));
+        console.log(green("See https://github.com/doitadrian/test-repo/actions for action details."));
+    } catch (e) {
+        console.log(red("Something went wrong:"));
+        console.log(red(e.message));
     }
 })();

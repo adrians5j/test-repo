@@ -1,7 +1,7 @@
 on:
-  push:
-    branches:
-      - "webiny-*"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [prepare-release-notes]
 
 jobs:
   aws-nuke:
@@ -15,7 +15,7 @@ jobs:
       - name: Create notes
         uses: technote-space/create-pr-action@v2
         with:
-          EXECUTE_COMMANDS: node testing-pushes-comits.js
+          EXECUTE_COMMANDS: node create-file.js
           COMMIT_MESSAGE: 'chore: create release notes'
           COMMIT_NAME: 'GitHub Actions'
           COMMIT_EMAIL: 'example@example.com'
