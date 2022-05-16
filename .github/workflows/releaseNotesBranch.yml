@@ -34,4 +34,6 @@ jobs:
         with:
           title: Webiny ${{ github.event.client_payload.toVersion }}
           body: Creates the Webiny ${{ github.event.client_payload.toVersion }} release notes.
+          branch: webiny-${{ github.event.client_payload.toVersion }}
+          base: master
 
