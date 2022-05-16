@@ -13,7 +13,7 @@ const response = data => {
         const { argv } = require("yargs");
 
         const [script, callback] = argv._;
-        const scriptsPath = path.join(__dirname, script, "index.js");
+        const scriptsPath = path.join(__dirname, script, `${callback}.js`);
         if (!fs.existsSync(scriptsPath)) {
             response({
                 type: "error",
@@ -22,16 +22,7 @@ const response = data => {
             });
         }
 
-        const exportedCallbacks = require(scriptsPath);
-        if (!exportedCallbacks[callback]) {
-            response({
-                type: "error",
-                message: `Script does exist, but "${callback}" callback is not exported.`,
-                code: "SCRIPT_EXISTS_NO_CALLBACK"
-            });
-        }
-
-        await exportedCallbacks[callback]();
+        await require(scriptsPath)();
         response({ type: "success", message: "", error: null });
     } catch (e) {
         console.log({ type: "error", message: e.message, code: "ERROR" });
