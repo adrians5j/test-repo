@@ -4,24 +4,11 @@ on:
     types: [prepare-release-notes]
 
 jobs:
-  create-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: peterjgrainger/action-create-branch@v2.2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: webiny-${{ github.event.client_payload.toVersion }}
-
   create-release-notes:
     needs: create-branch
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: webiny-${{ github.event.client_payload.toVersion }}
 
       - name: Install dependencies
         run: yarn --immutable
@@ -35,5 +22,3 @@ jobs:
           title: Webiny ${{ github.event.client_payload.toVersion }}
           body: Creates the Webiny ${{ github.event.client_payload.toVersion }} release notes.
           branch: webiny-${{ github.event.client_payload.toVersion }}
-          base: master
-
