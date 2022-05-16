@@ -19,5 +19,5 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           title: Webiny ${{ github.event.client_payload.toVersion }}
-          body: Creates the Webiny ${{ github.event.client_payload.toVersion }} release notes.
+          body: Creates the Webiny `${{ github.event.client_payload.toVersion }}` release notes.
           branch: webiny-${{ github.event.client_payload.toVersion }}
