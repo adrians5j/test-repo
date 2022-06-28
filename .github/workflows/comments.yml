@@ -23,6 +23,12 @@ jobs:
       - name: wtf
         run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
 
+      - name: wtf2
+        run: echo "The operating system on the runner is not Windows, it's $CI."
+
+      - name: wtf2
+        run: echo "The operating system on the runner is not Windows, it's ${{ CI }}."
+
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
