@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Get workflow run ID
         id: get-workflow-run-id
-        run: echo "::set-output name=workflowRunId::$($GITHUB_SERVER_URL)"
+        run: echo "::set-output name=workflowRunId::$(GITHUB_SERVER_URL)"
 
   check_comments:
     name: Check comments for /test
