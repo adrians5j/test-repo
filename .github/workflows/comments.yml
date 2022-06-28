@@ -1,9 +1,6 @@
 on: issue_comment
 name: Issue Comments
 
-env:
-  GITHUB_WORKFLOW_URL: $env:GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-
 jobs:
   check_comments:
     name: Check comments for /test
@@ -21,6 +18,10 @@ jobs:
           permission-level: admin
       - name: Act on the command
         run: echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
+
+
+      - name: wtf
+        run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
