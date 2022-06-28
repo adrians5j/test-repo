@@ -27,5 +27,5 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Cypress E2E tests have been initiated (for more information, click [here](env.GITHUB_WORKFLOW_URL). :sparkles:
+            Cypress E2E tests have been initiated (for more information, click [here](${{ env.GITHUB_WORKFLOW_URL }})). :sparkles:
 
