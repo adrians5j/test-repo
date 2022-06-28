@@ -24,4 +24,4 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             Cypress E2E tests have been initiated. :sparkles:
-            For more information, click [here]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID).
+            For more information, click [here](${{ $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID }}).
