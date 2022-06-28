@@ -21,10 +21,10 @@ jobs:
 
 
       - name: wtf
-        run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
+        run: echo "The operating system on the runner is not Windows, it's $GITHUB_SERVER_URL."
 
       - name: wtf2
-        run: echo "The operating system on the runner is not Windows, it's $CI."
+        run: echo "The operating system on the runner is not Windows, it's $GITHUB_REPOSITORY."
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
