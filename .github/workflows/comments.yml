@@ -2,6 +2,16 @@ on: issue_comment
 name: Issue Comments
 
 jobs:
+  get-workflow-run-url:
+    name: Get workflow run ID
+    runs-on: ubuntu-latest
+    outputs:
+      workflowRunId: ${{ steps.get-workflow-run-id.outputs.workflowRunId }}
+    steps:
+      - name: Get workflow run ID
+        id: get-workflow-run-id
+        run: echo "::set-output name=workflowRunId::$($GITHUB_SERVER_URL)"
+
   check_comments:
     name: Check comments for /test
     runs-on: ubuntu-latest
@@ -19,7 +29,6 @@ jobs:
       - name: Act on the command
         run: echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
 
-
       - name: wtf
         run: echo "The operating system on the runner is not Windows, it's $GITHUB_SERVER_URL."
 
@@ -34,4 +43,3 @@ jobs:
             Build output
             ${{ $GITHUB_SERVER_URL }}
           #body: "Cypress E2E tests have been initiated (for more information, click [here](${{ env.$GITHUB_SERVER_URL }})). :sparkles:"
-
