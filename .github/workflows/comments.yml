@@ -1,5 +1,9 @@
 on: issue_comment
 name: Issue Comments
+
+env:
+  GITHUB_WORKFLOW_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
 jobs:
   check_comments:
     name: Check comments for /test
@@ -23,5 +27,5 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Cypress E2E tests have been initiated (for more information, click [here](${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }})). :sparkles:
+            Cypress E2E tests have been initiated (for more information, click [here](env.GITHUB_WORKFLOW_URL). :sparkles:
 
